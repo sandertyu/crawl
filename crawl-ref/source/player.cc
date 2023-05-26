@@ -6659,6 +6659,11 @@ undead_state_type player::undead_state(bool temp) const
     return species::undead_type(species);
 }
 
+bool player::is_undead_player(bool temp) const
+{
+        return undead_state(temp) == US_UNDEAD;
+}
+
 bool player::nightvision() const
 {
     return have_passive(passive_t::nightvision)
@@ -7257,14 +7262,9 @@ bool player::can_safely_mutate(bool temp) const
     if (!can_mutate())
         return false;
 
-    return undead_state(temp) == US_ALIVE;
+    return !is_undead_player(temp);
 }
 
-// Is the player too undead to bleed, rage, or polymorph?
-bool player::is_undead_player(bool temp) const
-{
-        return undead_state(temp) == US_UNDEAD;
-}
 
 bool player::can_polymorph() const
 {
@@ -7479,7 +7479,7 @@ void player::check_awaken(int disturbance)
 
 bool player::may_pruneify() const {
     return player_equip_unrand(UNRAND_PRUNE)
-        && you.undead_state() == US_ALIVE;
+        && !you.is_undead_player();
 }
 
 int player::beam_resists(bolt &beam, int hurted, bool doEffects, string source)
