@@ -1069,7 +1069,7 @@ ability_type fixup_ability(ability_type ability)
         return ability;
 
     case ABIL_TROG_BERSERK:
-        if (you.is_lifeless_undead() || you.stasis())
+        if (you.is_undead_player() || you.stasis())
             return ABIL_NON_ABILITY;
         return ability;
 

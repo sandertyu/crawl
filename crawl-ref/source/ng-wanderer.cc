@@ -429,7 +429,7 @@ static void _good_potion_or_scroll()
              || you.stasis()) ? 0 : 2 },
         { { OBJ_POTIONS, POT_BERSERK_RAGE },
             (you.stasis()
-             || you.is_lifeless_undead(false)) ? 0 : 2 },
+             || you.is_undead_player(false)) ? 0 : 2 },
         { { OBJ_POTIONS, POT_MIGHT },
             you.has_mutation(MUT_NO_DRINK) ? 0 : 1 },
         { { OBJ_POTIONS, POT_BRILLIANCE },
@@ -462,11 +462,11 @@ static void _decent_potion_or_scroll()
         { { OBJ_POTIONS, POT_CURING },
             you.has_mutation(MUT_NO_DRINK) ? 0 : 5 },
         { { OBJ_POTIONS, POT_LIGNIFY },
-            you.is_lifeless_undead(false) ? 0 : 5 },
+            you.is_undead_player(false) ? 0 : 5 },
         { { OBJ_POTIONS, POT_ATTRACTION },
-            you.is_lifeless_undead(false) ? 0 : 5 },
+            you.is_undead_player(false) ? 0 : 5 },
         { { OBJ_POTIONS, POT_MUTATION },
-            you.is_lifeless_undead(false) ? 0 : 1 },
+            you.is_undead_player(false) ? 0 : 1 },
     };
 
     const pair<object_class_type, int> *option

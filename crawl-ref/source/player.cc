@@ -1539,7 +1539,7 @@ bool player_kiku_res_torment()
 int player_res_poison(bool allow_random, bool temp, bool items)
 {
     if (you.is_nonliving(temp)
-        || you.is_undead_yes(temp)
+        || you.is_undead_player(temp)
         || temp && get_form()->res_pois() == 3
         || items && player_equip_unrand(UNRAND_OLGREB)
         || temp && you.duration[DUR_DIVINE_STAMINA])
@@ -4325,7 +4325,7 @@ void handle_player_poison(int delay)
 
     // Transforming into a form with no metabolism merely suspends the poison
     // but doesn't let your body get rid of it.
-    if (you.is_nonliving() || you.is_undead_yes())
+    if (you.is_nonliving() || you.is_undead_player())
         return;
 
     // Other sources of immunity (Zin, staff of Olgreb) let poison dissipate.
@@ -6254,7 +6254,7 @@ mon_holy_type player::holiness(bool temp) const
 
     // Lich form takes precedence over a species' base holiness
     // Alive Vampires are MH_NATURAL
-    if (is_undead_yes(temp))
+    if (is_undead_player(temp))
         holi = MH_UNDEAD;
     else if (species::is_nonliving(you.species))
         holi = MH_NONLIVING;
@@ -6317,7 +6317,7 @@ int player::how_chaotic(bool /*check_spells_god*/) const
  */
 bool player::is_unbreathing() const
 {
-    return is_nonliving() || is_undead_yes()
+    return is_nonliving() || is_undead_player()
            || form == transformation::tree;
 }
 
@@ -6379,7 +6379,7 @@ bool player::res_miasma(bool temp) const
     if (armour && is_unrandom_artefact(*armour, UNRAND_EMBRACE))
         return true;
 
-    return is_undead_yes();
+    return is_undead_player();
 }
 
 
@@ -7261,14 +7261,14 @@ bool player::can_safely_mutate(bool temp) const
 }
 
 // Is the player too undead to bleed, rage, or polymorph?
-bool player::is_undead_yes(bool temp) const
+bool player::is_undead_player(bool temp) const
 {
         return undead_state(temp) == US_UNDEAD;
 }
 
 bool player::can_polymorph() const
 {
-    return !(transform_uncancellable || is_undead_yes());
+    return !(transform_uncancellable || is_undead_player());
 }
 
 bool player::can_bleed(bool temp) const
@@ -7276,7 +7276,7 @@ bool player::can_bleed(bool temp) const
     if (temp && !form_can_bleed(form))
         return false;
 
-    return !is_undead_yes(temp) && !is_nonliving(temp);
+    return !is_undead_player(temp) && !is_nonliving(temp);
 }
 
 bool player::can_drink(bool temp) const
@@ -7399,7 +7399,7 @@ bool player::can_throw_large_rocks() const
 
 bool player::can_smell() const
 {
-    return !you.is_undead_yes(true);
+    return !you.is_undead_player(true);
 }
 
 bool player::can_sleep(bool holi_only) const
@@ -8456,7 +8456,7 @@ bool player::immune_to_hex(const spell_type hex) const
     case SPELL_PETRIFY:
         return res_petrify();
     case SPELL_PORKALATOR:
-        return is_undead_yes();
+        return is_undead_player();
     case SPELL_VIRULENCE:
         return res_poison() == 3;
     // don't include the hidden "sleep immunity" duration

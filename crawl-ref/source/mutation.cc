@@ -411,7 +411,7 @@ mutation_activity_type mutation_activity_level(mutation_type mut)
         return mutation_activity_type::INACTIVE;
     }
 
-    if (mut == MUT_BERSERK && you.is_lifeless_undead())
+    if (mut == MUT_BERSERK && you.is_undead_player())
         return mutation_activity_type::INACTIVE;
 
     if (!form_can_bleed(you.form) && mut == MUT_SANGUINE_ARMOUR)

@@ -704,7 +704,7 @@ public:
     bool berserk() const override;
     bool can_mutate() const override;
     bool can_safely_mutate(bool temp = true) const override;
-    bool is_lifeless_undead(bool temp = true) const;
+    bool is_undead_player(bool temp = true) const;
     bool can_polymorph() const override;
     bool can_bleed(bool allow_tran = true) const override;
     bool can_drink(bool temp = true) const;

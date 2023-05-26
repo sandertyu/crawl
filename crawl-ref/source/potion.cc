@@ -627,7 +627,7 @@ public:
 
     bool effect(bool was_known = true, int = 40, bool=true) const override
     {
-        if (you.is_lifeless_undead())
+        if (you.is_undead_player())
         {
             mpr("You feel slightly irritated.");
             return false;
@@ -705,18 +705,18 @@ public:
 
     bool can_quaff(string *reason = nullptr, bool temp = true) const override
     {
-        if (you.is_lifeless_undead(temp))
+        if (you.is_undead_player(temp))
         {
             if (reason)
             {
-                if (!temp || you.is_lifeless_undead(false))
+                if (!temp || you.is_undead_player(false))
                     *reason = "Your unliving flesh cannot be transformed in this way.";
                 else
                     *reason = "You cannot currently transmute yourself.";
             }
             return false;
         }
-        // transformation prevented for other reasons than lifeless undead.
+        // transformation prevented for other reasons than undead.
         // These should all be temp reasons (e.g. in an uncancellable form)...
         if (temp)
             return transform(0, transformation::tree, false, true, reason);

@@ -2656,7 +2656,7 @@ static string _extra_passive_effects()
         passives.emplace_back("no spellcasting");
 
     const int anger = you.angry();
-    if (anger && !you.stasis() && !you.clarity() && !you.is_lifeless_undead())
+    if (anger && !you.stasis() && !you.clarity() && !you.is_undead_player())
     {
         passives.emplace_back(
             make_stringf("random rage (%d%%)", anger).c_str());

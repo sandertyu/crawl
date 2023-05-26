@@ -1286,7 +1286,7 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     case SPELL_SPIDER_FORM:
         if (you.undead_state(temp) == US_UNDEAD)
             return "your undead flesh cannot be transformed.";
-        if (you.is_lifeless_undead(temp))
+        if (you.is_undead_player(temp))
             return "your current blood level is not sufficient.";
         break;
 
