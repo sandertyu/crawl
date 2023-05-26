@@ -1833,7 +1833,7 @@ static ai_action::goodness _negative_energy_spell_goodness(const actor* foe)
             // Demonspawn are not demons, and statue form grants only
             // partial resistance.
             return ai_action::good();
-        case US_SEMI_UNDEAD:
+        case US_UNDEAD:
             // Non-bloodless vampires do not appear immune.
             return ai_action::good_or_bad(you.vampire_alive);
         default:
